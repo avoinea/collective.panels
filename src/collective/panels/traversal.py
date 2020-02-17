@@ -12,8 +12,8 @@ from plone.portlets.interfaces import ILocalPortletAssignable
 from plone.portlets.interfaces import IPortletAssignmentMapping
 from zExceptions import BadRequest, NotFound
 from zope.annotation.interfaces import IAttributeAnnotatable
-from zope.component import adapts
-from zope.interface import implements
+from zope.component import adapter
+from zope.interface import implementer
 from zope.publisher.interfaces.browser import IBrowserPublisher
 from zope.publisher.interfaces.browser import IBrowserRequest
 from zope.traversing.interfaces import ITraversable
@@ -24,13 +24,8 @@ from collective.panels.utils import decode
 from collective.panels.interfaces import IPanelManager
 
 
+@implementer(IBrowserPublisher, IPortletAssignmentMapping, ILocalPortletAssignable, IPanelManager)
 class PanelManager(Implicit, Traversable):
-    implements(
-        IBrowserPublisher,
-        IPortletAssignmentMapping,
-        ILocalPortletAssignable,
-        IPanelManager
-    )
 
     __allow_access_to_unprotected_subobjects__ = 1
 
@@ -116,10 +111,9 @@ class PanelManager(Implicit, Traversable):
         self._mapping.updateOrder(keys)
 
 
+@implementer(ITraversable)
+@adapter(IAttributeAnnotatable, IBrowserRequest)
 class PanelTraverser(object):
-    implements(ITraversable)
-    adapts(IAttributeAnnotatable, IBrowserRequest)
-
     def __init__(self, context, request=None):
         self.context = context
         self.request = request

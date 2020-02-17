@@ -9,7 +9,7 @@ from plone.portlets.interfaces import IPortletManager
 from plone.portlets.interfaces import IPortletType
 from zope.component import getUtilitiesFor
 from zope.container.contained import Contained
-from zope.interface import implements
+from zope.interface import implementer
 from zope.interface import providedBy
 
 from collective.panels.interfaces import IPanel
@@ -32,9 +32,8 @@ def getAssignmentMapping(panel, manager):
     return panel
 
 
+@implementer(IPortletAssignment, IPortletAssignmentMapping, ILocalPortletAssignable)
 class PortletContainerAssignment(Implicit, Persistent, Contained, Traversable):
-    implements(IPortletAssignment, IPortletAssignmentMapping,
-               ILocalPortletAssignable)
 
     __allow_access_to_unprotected_subobjects__ = 1
 
@@ -128,8 +127,8 @@ class PortletContainerAssignment(Implicit, Persistent, Contained, Traversable):
         self._p_changed = True
 
 
+@implementer(IPanel)
 class Panel(PortletContainerAssignment):
-    implements(IPanel)
 
     heading = u""
     css_class = u""

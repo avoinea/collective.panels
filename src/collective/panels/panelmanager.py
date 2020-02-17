@@ -4,7 +4,7 @@ from plone.portlets.interfaces import IPortletManager
 from zope.component import getUtilitiesFor
 #todo: check where used:
 from plone.portlets.interfaces import IPortletType
-from zope.interface import implements
+from zope.interface import implementer
 
 
 def getAddablePortletTypes(interface):
@@ -17,12 +17,12 @@ def getAddablePortletTypes(interface):
         types)
 
 
+@implementer(IPortletManager)
 class PanelPortletManager(object):
     """ Dummy IPortletManager implementation, registered as the named utility
         'panels'. For being able to reference an IPortletManager implementation
         in the portlet info, under the 'manager' key (See DisplayPanelView).
     """
-    implements(IPortletManager)
 
     def __call__(self, context, request, view):
         raise NotImplementedError(

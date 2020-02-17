@@ -1,5 +1,5 @@
 from plone.app.layout.viewlets import interfaces
-from zope.interface import implements
+from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
 from collective.panels.interfaces import IGlobalSettings
@@ -17,9 +17,8 @@ MANAGER_INTERFACE_TO_NAME = {
     interfaces.IPortalTop: 'plone.portaltop',
 }
 
-
+@implementer(IVocabularyFactory)
 class ManagerVocabulary(object):
-    implements(IVocabularyFactory)
 
     # Order is important here; the default location will be the first
     # available (non-hidden) manager.
@@ -40,9 +39,9 @@ class ManagerVocabulary(object):
 managers = ManagerVocabulary()
 
 
+@implementer(IVocabularyFactory)
 class CssClassesVocabulary(object):
     """ Vocabulary for css classes, stored in the registry. """
-    implements(IVocabularyFactory)
 
     def __call__(self, context):
         result = []

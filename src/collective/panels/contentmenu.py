@@ -206,5 +206,5 @@ class PanelManagerMenu(BrowserMenu):
             }
 
             items.append(item)
-        items.sort()
+        # items.sort()
         return items
