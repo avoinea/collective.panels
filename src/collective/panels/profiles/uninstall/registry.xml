@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <registry>
-
+  <records
+    remove="True"
+    interface="collective.panels.interfaces.IGlobalSettings" />
   <records
     remove="True"
     interface="Products.CMFPlone.interfaces.IResourceRegistry"
